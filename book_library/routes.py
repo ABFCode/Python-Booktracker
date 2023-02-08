@@ -25,6 +25,7 @@ pages = Blueprint(
 def login_required(route):
     @functools.wraps(route)
     def route_wrapper(*args, **kwargs):
+        #session.clear()
         if session.get("email") is None:
             return redirect(url_for(".login"))
 
@@ -37,7 +38,7 @@ def login_required(route):
 def index():
     user_data = current_app.db.user.find_one({"email": session["email"]})
     user = User(**user_data)
-    book_data = current_app.db.books.find({"_id": {"$in": user.movies}})
+    book_data = current_app.db.books.find({"_id": {"$in": user.books}})
     
     books = [Book(**book) for book in book_data]
     return render_template(
@@ -62,7 +63,7 @@ def add_book():
 
         current_app.db.books.insert_one(asdict(book))
         current_app.db.user.update_one(
-            {"_id": session["user_id"]}, {"$push": {"movies": book._id}}
+            {"_id": session["user_id"]}, {"$push": {"books": book._id}}
         )
 
         return redirect(url_for(".book", _id=book._id))
@@ -142,7 +143,7 @@ def rate_book(_id):
     
     return redirect(url_for(".book", _id=_id))
 
-@pages.get("/movie/<string:_id>/read")
+@pages.get("/book/<string:_id>/read")
 @login_required
 def read_today(_id):
     current_app.db.books.update_one(
@@ -182,6 +183,3 @@ def toggle_theme():
         session["theme"] = "dark"
 
     return redirect(request.args.get("current_page"))
-        
-
-
