@@ -1,4 +1,4 @@
-{% from "macros/fields.html" import render_text_field %}
+{% from "macros/fields.html" import show_text_field %}
 
 {% extends "layout.html" %}
 
@@ -18,11 +18,11 @@
         <div class="form__container">
             {{ form.hidden_tag() }}
     
-            {{ render_text_field(form.email) }}
-            {{ render_text_field(form.password) }}
+            {{ show_text_field(form.email) }}
+            {{ show_text_field(form.password) }}
     
             <span class="form__small">
-                Don't have an account? <a href="{{ url_for('pages.register') }}" class="form__link">Register here</a>.
+                New user? <a href="{{ url_for('pages.register') }}" class="form__link">Register</a>.
             </span>
     
             <div>
