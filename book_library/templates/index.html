@@ -14,15 +14,15 @@
             </colgroup>
             <thead>
                 <th class="table__cell table__cell--header">Title</th>
-                <th class="table__cell table__cell--header">Release Date</th>
+                <th class="table__cell table__cell--header">Release</th>
                 <th class="table__cell table__cell--header"></th>
             </thead>
             <tbody>
                 {% for book in books_data %}
                     <tr>
                         <td class="table__cell">
-                            <p class="table__bookTitle">{{ book.title }}</p>
-                            <p class="table__bookDirector">By {{ book.director }}</p>
+                            <p class="table__Title">{{ book.title }}</p>
+                            <p class="table__Author">By {{ book.director }}</p>
                         </td>
                         <td class="table__cell">{{ book.year }}</td>
                         <td class="table__cell"><a href="{{url_for('pages.book', _id=book._id)}}" class="table__link">View</a></td>
@@ -32,7 +32,7 @@
         </table>
 
     {% else %}
-        <p class="table__empty">You haven't added any books yet. <a href="{{ url_for('pages.add_book')}}" class="link">Add One!</a></p>
+        <p class="table__empty">You haven't added any books yet. <a href="{{ url_for('pages.add_book')}}" class="link">Add One</a></p>
 
 
     {% endif %}
