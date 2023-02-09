@@ -3,9 +3,9 @@
     --text-light: #fbf2f2;
     --text-muted: #595959;
   
-    --background-color: #fff;
-    --accent-color: #f56565;
-    --accent-color-2: #3bb54a;
+    --background-color: #F8F8F8;
+    --accent-color: #f9a825 ;
+    --accent-color-2: #595959;
     --tag-color: #e5e5e5;
   
     --border: 3px solid #000;
@@ -17,8 +17,8 @@
     --text-muted: #595959;
   
     --background-color: #1c2023;
-    --accent-color: #f56565;
-    --accent-color-2: #3bb54a;
+    --accent-color: #f9a825 ;
+    --accent-color-2: #595959;
     --tag-color: var(--accent-color-2);
   
     --border: 3px solid #fff;
@@ -35,7 +35,7 @@
   
   .form__field,
   .nav__link {
-    --border: 3px solid #f56565;
+    --border: 3px solid #f9a825 ;
   }
   
   html {
