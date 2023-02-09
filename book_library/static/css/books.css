@@ -49,11 +49,11 @@
     border-bottom: var(--border);
   }
   
-  .table__bookTitle {
+  .table__Title {
     font-weight: 600;
   }
   
-  .table__bookDirector {
+  .table__Author {
     font-size: 0.85em;
   }
 
