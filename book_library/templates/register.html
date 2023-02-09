@@ -1,4 +1,4 @@
-{% from "macros/fields.html" import render_text_field %}
+{% from "macros/fields.html" import show_text_field %}
 
 {% extends "layout.html" %} 
 
@@ -10,21 +10,23 @@
 
     <form name="register" method="post" novalidate class="form">
         {% with messages = get_flashed_messages(with_categories=true) %}
-            {%- for category, message in messages %}
-                <span class="form__flash form__flash--{{category}}"> {{ message }}</span>
-            {% endfor %}
+            {% if messages %}
+                {%- for category, message in messages %}
+                    <span class="form__flash form__flash--{{category}}"> {{ message }}</span>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
         
         <div class="form__container">
             {{ form.hidden_tag() }}
 
-            {{ render_text_field(form.email) }}
-            {{ render_text_field(form.password) }}
-            {{ render_text_field(form.confirm_password) }}
+            {{ show_text_field(form.email) }}
+            {{ show_text_field(form.password) }}
+            {{ show_text_field(form.confirm_password) }}
     
-            <span class="form__small">
-                Already have an account? <a href="{{ url_for('pages.login')}}" class="form__link">Log in here</a>.
-            </span>
+            <p class="form__small">
+                Already a user? <a href="{{ url_for('pages.login')}}" class="form__link">Log in</a>.
+            </p>
     
             <div>
                 {{ form.submit(class_="button button--form") }}
