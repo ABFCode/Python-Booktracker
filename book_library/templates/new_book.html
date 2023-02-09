@@ -1,4 +1,4 @@
-{% from "macros/fields.html" import render_text_field %}
+{% from "macros/fields.html" import show_text_field %}
 
 {% extends "layout.html" %}
 
@@ -10,9 +10,9 @@
     <form name="add_book" method="post" novalidate class="form">
         <div class="form__container">
             {{form.hidden_tag()}}
-            {{render_text_field(form.title)}}
-            {{render_text_field(form.director)}}
-            {{render_text_field(form.year)}}
+            {{show_text_field(form.title)}}
+            {{show_text_field(form.director)}}
+            {{show_text_field(form.year)}}
 
 
             <div>
