@@ -1,4 +1,4 @@
-{% macro render_text_field(field) %}
+{% macro show_text_field(field) %}
 <div class="form__group">
     {{ field.label(class="form__label")}}
     {{ field(class="form__field")}}
@@ -10,7 +10,7 @@
 {% endmacro %}
 
 
-{% macro render_area_field(field) %}
+{% macro show_area_field(field) %}
 <div class="form__group">
     {{ field.label(class_="form__label") }}
     {{ field(rows=4, class_="form__field", style="resize: none") }}
