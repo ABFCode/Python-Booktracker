@@ -1,88 +1,37 @@
-{% from "macros/svgs.html" import pencil, star%}
+{% from "macros/fields.html" import show_text_field, show_area_field %}
 
 {% extends "layout.html" %}
 
-{%- block head_content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/book_details.css') }}" />
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" />
 {% endblock %}
 
 {% block main_content %}
-<div class="container">
-    <header class="book__header">
-        <div class="header__row">
-            <div class="book__name">
-                <h1>{{ book.title }}</h1>
-                <div class="book__rating">
-                    {% for i in range(5) %}
-                        <a class="rating__link" href="{{ url_for('pages.rate_book', _id=book._id, rating=i+1)}}">
-                            {{ star("star " + ("star--filled" if book.rating > i else "")  ) }}
-                            
-                        </a>
-                        
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="book__watched">
-                {% if book.last_watched %}
-                    <p>
-                        Last read: <a href="{{ url_for('pages.read_today', _id=book._id) }}" class="watched__link">
-                            <time datetime="{{ book.last_watched }}">{{book.last_watched.strftime("%B %d %Y")}}</time>
-                        </a>
-                    </p>
-                {% else %}
-                    <p><a href="{{ url_for('pages.read_today', _id=book._id) }}" class="watched__link"> Not watched yet</a></p>
-                {% endif %}
-                <a class="book__edit" href="{{ url_for('pages.edit_book', _id=book._id)}}">Edit {{ pencil("pencil") }}</a>
+    <form name="add_book" method="post" novalidate class="form">
+        <div class="form__container">
+            {{form.hidden_tag()}}
+               
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">Book Information</legend>
+                {{show_text_field(form.title)}}
+                {{show_text_field(form.director)}}
+                {{show_text_field(form.year)}}
+            </fieldset>
+
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">Additional Information</legend>
+                {{ show_area_field(form.cast) }}
+                {{ show_area_field(form.series) }}
+                {{ show_area_field(form.tags) }}
+                {{ show_area_field(form.description) }}
+                {{ show_text_field(form.video_link) }}
+            </fieldset>
+
+            <div>
+                {{ form.submit(class_="button button--form") }}
             </div>
         </div>
-        <div class="header__row">
-            <ul class="book__tags">
-            {% for tag in book.tags %}
-                <li class="book__tag">{{ tag }}</li>
-            {% endfor %}
-            </ul>
-        </div>
-    </header>
 
-    {% if book.video_link %}
-            <iframe
-                class="book__video"
-                src="{{book.video_link }}"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-    {% endif %}
-
-    {% if book.description %}
-        <p class="book__description">{{ book.description|safe }}</p>
-    {% else %}
-        <p class="book__description"> Description not available <a class="link" href="{{ url_for('pages.edit_book', _id=book._id)}}">Add a description</a></p>
-    {% endif %}
-
-    <section class="book__meta">
-        {% if book.cast %}
-            <div class="book__casting">
-                <h2>Characters</h2>
-                <ul class="list">
-                {% for actor in book.cast %}
-                    <li class="list__item">{{ actor }}</li>
-                {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-        {% if book.series | length %}
-            <div class="book__series">
-                <h2>Related Novels</h2>
-                <ul class="list">
-                {% for series_book in book.series %}
-                    <li class="list__item">{{ series_book }}</li>
-                {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-    </section>
-
-</div>
+        
+    </form>
 {% endblock %}
