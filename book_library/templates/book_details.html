@@ -26,7 +26,7 @@
                 {% if book.last_watched %}
                     <p>
                         Last read: <a href="{{ url_for('pages.read_today', _id=book._id) }}" class="watched__link">
-                            <time datetime="{{ book.last_watched }}">{{book.last_watched.strftime("%d %b %Y")}}</time>
+                            <time datetime="{{ book.last_watched }}">{{book.last_watched.strftime("%B %d %Y")}}</time>
                         </a>
                     </p>
                 {% else %}
@@ -56,12 +56,12 @@
     {% endif %}
 
     {% if book.description %}
-        <p class="book__description">{{ book.description }}</p>
+        <p class="book__description">{{ book.description|safe }}</p>
     {% else %}
-        <p class="book__description">No description yet. <a class="link" href="{{ url_for('pages.edit_book', _id=book._id)}}">Add one?</a></p>
+        <p class="book__description"> Description not available <a class="link" href="{{ url_for('pages.edit_book', _id=book._id)}}">Add a description</a></p>
     {% endif %}
 
-    <div class="book__meta">
+    <section class="book__meta">
         {% if book.cast %}
             <div class="book__casting">
                 <h2>Characters</h2>
@@ -69,20 +69,20 @@
                 {% for actor in book.cast %}
                     <li class="list__item">{{ actor }}</li>
                 {% endfor %}
-                <ul>
+                </ul>
             </div>
         {% endif %}
         {% if book.series | length %}
             <div class="book__series">
                 <h2>Related Novels</h2>
                 <ul class="list">
-                {% for book_in_series in book.series %}
-                    <li class="list__item">{{ book_in_series }}</li>
+                {% for series_book in book.series %}
+                    <li class="list__item">{{ series_book }}</li>
                 {% endfor %}
-                <ul>
+                </ul>
             </div>
         {% endif %}
-    </div>
+    </section>
 
 </div>
 {% endblock %}
